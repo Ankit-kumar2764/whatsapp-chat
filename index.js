@@ -17,18 +17,16 @@ async function main() {
   console.log('Connected to MongoDB');
 }
 
-let chat1=new Chat({
-  from:'Ankit',
-  to:'Anjani',
-  message:'Hello Anjani',
-  createdAt:new Date(),
-});
 
-chat1.save().then((res)=>{
-  console.log(res);
-}).catch((err)=>{
-  console.error('Error saving chat:', err);
+//index route
+
+app.get("/chats",  async(req, res) => {
+  let chats = await Chat.find();
+  console.log(chats);
+  res.send("working");
 });
+  
+
 
 app.get('/', (req, res) => {
   res.send('root is working');

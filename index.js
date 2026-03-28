@@ -8,6 +8,8 @@ const Chat = require('./models/chat.js');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+
 
 main().then(() => {
   console.log('connection successfull');
@@ -32,6 +34,24 @@ app.get("/chats/new", (req, res) => {
   res.render("new.ejs");
 });
 
+//create route
+app.post("/chats", async (req, res) => {
+  try {
+    let { from, to, message } = req.body;
+    let newchat = new Chat({
+      from,
+      to,
+      message,
+      createdAt: new Date(),
+    });
+    await newchat.save();
+    console.log("saved chat:", newchat);
+    return res.redirect("/chats");
+  } catch (err) {
+    console.error("POST /chats error:", err);
+    return res.status(500).send("Unable to create chat");
+  }
+});
 
 app.get('/', (req, res) => {
   res.send('root is working');

@@ -12,9 +12,9 @@ async function main() {
 
 let allChats =[
   {
-  from:'Aman',
+  from:'Ankit',
   to:'Anjani',
-  message:'aman says  Anjani hello',
+  message:'Ankit says  Anjani hello',
   createdAt:new Date(),
 },
 {

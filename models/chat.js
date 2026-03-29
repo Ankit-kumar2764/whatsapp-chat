@@ -13,7 +13,7 @@ message:{
     type:String,
     maxlength:50,
 },
-createdAt:{
+created_At:{
     type:Date,
     required:true,
   },

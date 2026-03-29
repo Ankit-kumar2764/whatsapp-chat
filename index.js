@@ -43,7 +43,7 @@ app.post("/chats", async (req, res) => {
     from,
     to,
     message,
-    createdAt: new Date(),
+    created_At: new Date(),
   });
 
   await chat.save();

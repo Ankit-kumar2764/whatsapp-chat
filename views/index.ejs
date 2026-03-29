@@ -23,6 +23,9 @@
 
         <p><i>chat recieved by <%= chat.to %> </i></p>
         <hr/>
+        <p> <%= chat.created_At.toString().split(" ")[4] %> </p>
+        <p> <%= chat.created_At.toString().split(" ").slice(0,4).join("-") %> </p>
+        
     </div> 
     <br > </br>
     <% } %>

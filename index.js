@@ -63,11 +63,11 @@ app.get("/chats/:id/edit", async (req, res) => {
 
 //update route
 
-app.put("/chats/:id",  (req, res) => {
+app.put("/chats/:id",  async(req, res) => {
   let { id } = req.params;
-  let { message,newmessage } = req.body;
+  let { message:newmessage } = req.body;
   console.log(newmessage);
-  let updatchat =  Chat.findByIdAndUpdate(id, { message ,newmessage}, { runValidators: true , new: true });
+  let updatchat = await Chat.findByIdAndUpdate(id, { message : newmessage}, { runValidators: true , new: true });
 
   console.log(updatchat);
   res.redirect("/chats");

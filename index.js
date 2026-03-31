@@ -4,12 +4,14 @@ const port = 3000;
 const mongoose = require('mongoose');
 const path = require('path');  
 const Chat = require('./models/chat.js'); 
+const methodOverride = require('method-override');
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
-
+app.use(methodOverride('_method'));
 
 main().then(() => {
   console.log('connection successfull');
@@ -52,6 +54,25 @@ app.post("/chats", async (req, res) => {
   res.send("saved");
 });
   
+//edit route
+app.get("/chats/:id/edit", async (req, res) => {
+  let { id } = req.params;  
+  let chat = await Chat.findById(id);
+  res.render("edit.ejs",{chat});
+});
+
+//update route
+
+app.put("/chats/:id",  (req, res) => {
+  let { id } = req.params;
+  let { message,newmessage } = req.body;
+  console.log(newmessage);
+  let updatchat =  Chat.findByIdAndUpdate(id, { message ,newmessage}, { runValidators: true , new: true });
+
+  console.log(updatchat);
+  res.redirect("/chats");
+});
+
 
 app.get('/', (req, res) => {
   res.send('root is working');
